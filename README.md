@@ -1,2 +1,2 @@
 # i3wm
-i3wm config on Xubuntu
+Very *basic* i3wm config on Xubuntu. It follows Vim navigation bindings. 
