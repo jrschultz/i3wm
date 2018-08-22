@@ -1,0 +1,50 @@
+---
+title: My i3WM Cheat Sheet
+author: Jason Schultz
+output: pdf_document
+linkcolor: blue
+geometry: margin = .75in
+header-includes:
+     \usepackage{tgbonum}
+     \fontfamily{qcr}
+---
+
+## i3wm Cheat Sheet!
+
+### Window Basics
+
++ `Mod+Enter` -- Spawn Terminal
++ `Mod+/` -- Spawn Horizontal Terminal 
++ `Mod+'` -- Spawn Vertical Terminal
++ `Mod+t` -- Toggle Between Vertical & Horizontal Terminals
++ `Mod+q` -- Close Window
++ `Mod+f` -- Full Screen
+
+### Window Navigation (Vim Bindings)
+
++ `Mod+h/j/k/l` -- Move to another Window
++ `Mod+(number)` -- Move to that number Workspace 
++ `Mod+Shift+(number)` -- Send Window to that Workspace 
++ `Mod+Tab` -- Go to Previous Workspace 
++ `Mod+Shift+Delete` -- "Snowden Mode" Press this sequence to hide your screen.
+  Moves to a new workspace, mutes sound, pauses music and shows distraction
+  windows.
+
+### Basic Applications
+
++ `Mod+w` -- Web Browser (FireFox)
++ `Mod+r` -- File Manager (Ranger)
++ `Mod+e` -- Email Client (Mutt)
++ `Mod+i` -- System Info (HTop)
++ `Mod+d` -- DMenu (All other Apps)
+
+### System 
+
++ `Mod+x' -- Lock Screen (Password Protected i3Lock)
++ `Mod+X' -- Shutdown (With Confirmation Selection)
++ `Mod+Shift+b' -- Restart i3
++ `Mod+Shift+c` -- Reload i3 Config
+
+### Wallpaper
+
+* i3 defaults to the file in ~/.config/wall.png for the desktop wallpaper.

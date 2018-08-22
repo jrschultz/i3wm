@@ -1,0 +1,266 @@
+# Schultz i3wm CONFIGURATION 
+# --------------------------
+# Date: August 21 2018
+
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+# --- Fundamentals ---
+
+# Set Mod Key
+set $mod Mod1
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:monospace 8 
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 12
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+  
+set $term --no-startup-id exec i3-sensible-terminal
+set $shutdown sudo -A shutdown -h now
+set $reboot sudo -A reboot
+set $hibernate sudo -A systemctl suspend
+
+# --- Starting External Scripts ---
+
+# Starts dunst for notifications
+exec --no-startup-id dunst
+
+# Composite Manager
+exec --no-startup-id compton
+
+# Runs the Key Mapping Scripts
+exec --no-startup-id ~/.scripts/remaps.sh
+
+# --- Bar Configuration using i3 Blocks ---
+bar {
+	font pango: Source Sans Pro-10 10      
+	status_command i3blocks -c ~/.i3blocks.conf
+  	position  top
+colors {
+    separator #268bd2
+    background #4f453e
+    statusline #e6eced
+    focused_workspace #fdf6e3 #6c71c4 #fdf6e3
+    active_workspace #fdf6e3 #6c71c4 #fdf6e3
+    inactive_workspace #002b36 #586e75 #002b36
+    urgent_workspace #d33682 #d33682 #fdf6e3
+  }
+}
+client.focused #6c71c4 #6c71c4 #fdf6e3 #6c71c4
+client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
+client.unfocused #073642 #073642 #93a1a1 #586e75
+client.urgent #d33682 #d33682 #fdf6e3 #dc322f
+    
+# Setting Colors from Xresources
+#set_from_resource $.Xresources default       
+
+# --- KEY BINDINGS ---
+
+# -- Window Basics --
+
+# Spawn Terminal 
+bindsym $mod+Return           exec i3-sensible-terminal
+
+# Spawn Horizontal Terminal
+bindsym $mod+slash            split horizontal ;; exec $term
+
+# Spawn Vertical Terminal
+bindsym $mod+apostrophe       split vertical ;; exec $term
+
+# Toggle Between Vertical & Horizontal Terminals
+bindsym $mod+t                split toggle  
+
+# Close Window
+bindsym $mod+q                kill
+
+# Full Screen
+bindsym $mod+f                fullscreen toggle
+
+
+# -- Window Navigation (Vim Bindings) --
+
+bindsym $mod+h			focus left
+bindsym $mod+j			focus down
+bindsym $mod+k			focus up
+bindsym $mod+l			focus right
+bindsym $mod+Home		workspace $ws1
+bindsym $mod+Shift+Home		move container to workspace $ws1
+bindsym $mod+End		workspace $ws10
+bindsym $mod+Shift+End		move container to workspace $ws10
+bindsym $mod+Tab		workspace back_and_forth
+
+# -- Arrow Keys -- #
+bindsym $mod+Left		focus left
+bindsym $mod+Down		focus down
+bindsym $mod+Up			focus up
+bindsym $mod+Right 		focus right
+bindsym $mod+Shift+Left		move left
+bindsym $mod+Shift+Down		move down
+bindsym $mod+Shift+Up		move up
+bindsym $mod+Shift+Right        move right 
+
+# Snowden Mode:
+bindsym $mod+Shift+Delete     exec --no-startup-id lmc truemute ; exec $truepause ; exec --no-startup-id pauseallmpvl; workspace 0; exec $term -e htop ; exec $term -e ranger
+
+# -- Workspace Declarations --
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1		workspace $ws1
+bindsym $mod+2		workspace $ws2
+bindsym $mod+3		workspace $ws3
+bindsym $mod+4		workspace $ws4
+bindsym $mod+5		workspace $ws5
+bindsym $mod+6		workspace $ws6
+bindsym $mod+7		workspace $ws7
+bindsym $mod+8		workspace $ws8
+bindsym $mod+9		workspace $ws9
+bindsym $mod+0		workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1	move container to workspace $ws1
+bindsym $mod+Shift+2	move container to workspace $ws2
+bindsym $mod+Shift+3	move container to workspace $ws3
+bindsym $mod+Shift+4	move container to workspace $ws4
+bindsym $mod+Shift+5	move container to workspace $ws5
+bindsym $mod+Shift+6	move container to workspace $ws6
+bindsym $mod+Shift+7	move container to workspace $ws7
+bindsym $mod+Shift+8	move container to workspace $ws8
+bindsym $mod+Shift+9	move container to workspace $ws9
+bindsym $mod+Shift+0	move container to workspace $ws10
+
+# -- Basic Applications --
+
+# Web Browser
+bindsym $mod+w                 exec firefox 
+
+# Ranger
+bindsym $mod+r	               exec $term -e ranger
+bindsym $mod+Shift+r           exec $term -e sudo ranger /	 
+
+# Email 
+bindsym $mod+e                 exec $term -e neomutt   
+
+# HTOP
+bindsym $mod+i	               exec $term -e htop
+
+# Start Dmenu
+bindsym $mod+d                 exec dmenu_run
+
+# -- System --
+
+# Lock Screen
+bindsym $mod+x			exec --no-startup-id ~/.scripts/lockscreen.sh
+
+# Exit i3
+bindsym $mod+Shift+x exec --no-startup-id prompt "Are you sure you want to shutdown?" "$shutdown"
+
+# Restart i3 In Place
+bindsym $mod+Shift+b          restart         
+
+# Reload the config file
+bindsym $mod+Shift+c          reload
+
+# ---  For Screenshots ---
+bindsym $mod+Print              exec --no-startup-id scrot
+bindsym Shift+Print             exec --no-startup-id scrot -u
+
+# --- Miscellaneous Bindings --- 
+
+# --- These are the extra media keys that some keyboards have ---
+bindsym XF86AudioMute		exec --no-startup-id lmc mute
+bindsym XF86AudioLowerVolume	exec --no-startup-id lmc down 5
+bindsym XF86AudioRaiseVolume	exec --no-startup-id lmc up 5
+bindsym XF86PowerOff		exec --no-startup-id prompt "Are you sure you want to shutdown?" "$shutdown"
+##bindsym XF86Copy		exec
+##bindsym XF86Open		exec
+##bindsym XF86Paste		exec
+##bindsym XF86Cut		exec
+##bindsym XF86MenuKB		exec
+bindsym XF86Calculator		exec $term -e R -q
+##bindsym XF86Sleep		This binding is typically mapped by systemd automatically.
+##bindsym XF86WakeUp		exec
+bindsym XF86Explorer		exec $term -e ranger
+##bindsym XF86Send		exec
+##bindsym XF86Xfer		exec
+bindsym XF86WWW			exec --no-startup-id $BROWSER
+##bindsym XF86DOS		exec
+bindsym XF86ScreenSaver		exec exec --no-startup-id lockscreen
+##bindsym XF86RotateWindows	exec
+##bindsym XF86TaskPane		exec
+##bindsym XF86Favorites		exec
+bindsym XF86MyComputer		exec $term -e ranger
+##bindsym XF86Back		exec
+##bindsym XF86Forward		exec
+bindsym XF86Eject		exec --no-startup-id dmenuumount
+bindsym XF86AudioNext		exec --no-startup-id lmc next
+bindsym XF86AudioPlay		exec --no-startup-id lmc toggle
+bindsym XF86AudioPrev		exec --no-startup-id lmc prev
+bindsym XF86AudioStop		exec --no-startup-id lmc toggle
+##bindsym XF86AudioRecord
+bindsym XF86AudioRewind		exec --no-startup-id lmc back 10
+bindsym XF86AudioForward	exec --no-startup-id lmc forward 10
+##bindsym XF86Phone		exec
+##bindsym XF86Tools		exec
+bindsym XF86HomePage		exec $BROWSER https://duckduckgo.com
+bindsym XF86Reload		restart
+##bindsym XF86ScrollUp		exec
+##bindsym XF86ScrollDown	exec
+##bindsym XF86New		exec
+##bindsym XF86LaunchA		exec
+##bindsym XF86LaunchB		exec
+##bindsym XF86Launch2		exec
+##bindsym XF86Launch3		exec
+##bindsym XF86Launch4		exec
+##bindsym XF86Launch5		exec
+##bindsym XF86Launch6		exec
+##bindsym XF86Launch7		exec
+##bindsym XF86Launch8		exec
+##bindsym XF86Launch9		exec
+#bindsym XF86AudioMicMute	exec $micmute
+bindsym XF86TouchpadToggle	exec --no-startup-id toggletouchpad
+bindsym XF86TouchpadOn		exec --no-startup-id synclient TouchpadOff=0
+bindsym XF86TouchpadOff		exec --no-startup-id synclient TouchpadOff=1
+bindsym XF86Suspend		exec --no-startup-id lockscreen
+bindsym XF86Close		kill
+bindsym XF86WebCam		exec --no-startup-id camtoggle
+bindsym XF86Mail		exec $term -e neomutt
+##bindsym XF86Messenger		exec $term -e weechat
+bindsym XF86Search		exec $BROWSER https://duckduckgo.com
+##bindsym XF86Go			exec
+##bindsym XF86Finance		exec
+##bindsym XF86Game		exec
+##bindsym XF86Shop		exec $BROWSER https://ebay.com
+bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15
+bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15
+bindsym XF86AudioMedia		exec --no-startup-id st -e ncmpcpp
+bindsym XF86Display		exec --no-startup-id arandr
+#bindsym XF86KbdLightOnOff	exec
+#bindsym XF86KbdBrightnessDown	exec --no-startup-id python3.6 ~/.scripts/kb-lights.py -
+#bindsym XF86KbdBrightnessUp	exec --no-startup-id python3.6 ~/.scripts/kb-lights.py +
+##bindsym XF86Reply		exec
+##bindsym XF86MailForward	exec
+##bindsym XF86Save		exec
+bindsym XF86Documents		exec $term -e ranger ~/Documents
+##bindsym XF86Battery		exec
+##bindsym XF86Bluetooth		exec
+#bindsym XF86WLAN               exec $netrefresh
+
+# --- Wallpaper ---
+exec_always feh --bg-scale /home/jason/.config/wall.png
+
