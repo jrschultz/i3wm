@@ -34,7 +34,7 @@ exec --no-startup-id dunst
 exec --no-startup-id compton
 
 # Runs the Key Mapping Scripts
-exec --no-startup-id ~/.scripts/remaps.sh
+#exec --no-startup-id ~/.scripts/remaps.sh
 
 # --- Bar Configuration using i3 Blocks ---
 bar {
@@ -165,10 +165,10 @@ bindsym $mod+d                 exec dmenu_run
 # -- System --
 
 # Lock Screen
-bindsym $mod+x			exec --no-startup-id ~/.scripts/lockscreen.sh
+bindsym $mod+x		       exec --no-startup-id ~/.scripts/lockscreen.sh
 
 # Exit i3
-bindsym $mod+Shift+x exec --no-startup-id prompt "Are you sure you want to shutdown?" "$shutdown"
+bindsym $mod+Shift+x          exec "i3-nagbar -t warning -m 'Do you want to for realz exit i3?' -b 'Yeppers!' 'i3-msg exit'"
 
 # Restart i3 In Place
 bindsym $mod+Shift+b          restart         
