@@ -19,6 +19,9 @@ header-includes:
 + `Mod+t` -- Toggle Between Vertical & Horizontal Terminals
 + `Mod+q` -- Close Window
 + `Mod+f` -- Full Screen
++ `Mod+Shift+Space` -- Float a Window
++ `Mod+s` -- Resize Mode for Floating Windows
+-- While in Resize Mode use Vim Bindings for 20px, Arrows for 10px
 
 ### Window Navigation (Vim Bindings)
 
